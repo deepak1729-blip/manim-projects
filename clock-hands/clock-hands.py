@@ -47,9 +47,11 @@ class PuzzleStatement(Scene):
             inner_x = watchI.get_center()[0] + inner_radius * np.cos(angle)
             inner_y = watchI.get_center()[1] + inner_radius * np.sin(angle)
             
-            tick = Line(start=[outer_x, outer_y, 0],
-                        end=[inner_x, inner_y, 0],
-                        color=GOLD)
+            tick = Line(
+                start=[outer_x, outer_y, 0],
+                end=[inner_x, inner_y, 0],
+                color=GOLD
+            )
             tick_marks.add(tick)
 
         watch_face = VGroup(watchO,watchI, tick_marks, numbers)
@@ -441,19 +443,19 @@ class EquationWriting(Scene):
         self.wait()
 
         # Fly the values from the clock to the equation
-        self.play(label_2pi.animate.next_to(omega_eq, RIGHT, buff=0.2),
-                  label_2pi_12.animate.next_to(minus_sign, RIGHT, buff=0.2),
+        self.play(label_2pi.animate.next_to(minus_sign, RIGHT, buff=0.2),
+                  label_2pi_12.animate.next_to(omega_eq, RIGHT, buff=0.2),
                   FadeOut(arc_minute),
                   FadeOut(arc_hour),
                   run_time=1.5)
 
         # Simplify Result (11pi/6)
-        result_text = MathTex(r"\frac{11\pi}{6} \text{ rad/hr}", color=YELLOW, font_size=42).next_to(label_2pi, DOWN, aligned_edge=LEFT, buff=0.5)
+        result_text = MathTex(r"-\frac{11\pi}{6} \text{ rad/hr}", color=YELLOW, font_size=40).next_to(label_2pi_12, DOWN, aligned_edge=LEFT, buff=0.5)
         
         self.play(Write(result_text))
         self.wait()
 
-        eq_final_substituted = MathTex(r"2", r"d", r"\frac{dd}{dt}", r"=", r"100", r"\sin\left(\frac{\pi}{6}\right)", r"\frac{11\pi}{6}",
+        eq_final_substituted = MathTex(r"2", r"d", r"\frac{dd}{dt}", r"=", r"100", r"\sin\left(\frac{\pi}{6}\right)", r"\left(\frac{-11\pi}{6}\right)",
                                        font_size=48).scale(0.7).move_to(eq_diff.get_center())
         
         eq_final_substituted[1].set_color(YELLOW)    # d
@@ -492,7 +494,7 @@ class FinalSolving(Scene):
                            r"=",                             # [3]
                            r"100",                           # [4]
                            r"\sin\left(\frac{\pi}{6}\right)",# [5]
-                           r"\frac{11\pi}{6}",               # [6]
+                           r"\left(\frac{-11\pi}{6}\right)", # [6]
                            font_size=48)
         
         # Apply Colors
@@ -523,7 +525,7 @@ class FinalSolving(Scene):
         step2_eq = MathTex(
             r"2", r"d", r"\frac{dd}{dt}",  # [0], [1], [2]
             r"=",                          # [3]
-            r"50",                         # [4]
+            r"-50",                        # [4]
             r"\frac{11\pi}{6}",            # [5]
             font_size=48
         )
@@ -544,7 +546,7 @@ class FinalSolving(Scene):
         target_eq = MathTex(
             r"\frac{dd}{dt}",     # [0]
             r"=",                 # [1]
-            r"50",                # [2]
+            r"-50",                # [2]
             r"\frac{11\pi}{6}",   # [3]
             r"\frac{1}{2d}",      # [4]
             font_size=48
@@ -576,7 +578,7 @@ class FinalSolving(Scene):
 
         subbed_eq = MathTex(r"\frac{dd}{dt}",
                             r"=",
-                            r"50",
+                            r"-50",
                             r"\frac{11\pi}{6}",
                             r"\frac{1}{2(6.2)}",
                             font_size=48)
@@ -596,7 +598,7 @@ class FinalSolving(Scene):
 
         result_eq = MathTex(r"\frac{dd}{dt}", # [0]
                             r"\approx",       # [1]
-                            r"23.21 mm/hr",   # [2]
+                            r"-23.21 mm/hr",   # [2]
                             font_size=48)
         
         result_eq[0][1].set_color(YELLOW)
