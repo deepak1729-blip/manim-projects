@@ -2,7 +2,6 @@ from manim import *
 import numpy as np
 import random
 
-
 class PuzzleStatement(Scene):
     def construct(self):
         a = Text("Puzzle:", font_size=24,font="Times New Roman")
@@ -374,7 +373,7 @@ class EquationWriting(Scene):
         #CALCULATE d(theta)/dt
 
         # Declutter
-        eq_diff_corner = eq_diff.copy().scale(0.7).to_corner(UL)
+        eq_diff_corner = eq_diff.copy().scale(0.7).move_to([-4.5,3,0])
         
         self.play(Transform(eq_diff, eq_diff_corner),
                   FadeOut(diff_label),
@@ -398,7 +397,7 @@ class EquationWriting(Scene):
         # Minute Hand Arc:
         arc_minute = Arc(radius=1.8,
                          start_angle=90*DEGREES,
-                         angle=-2*PI + 0.01,
+                         angle=-2*PI,
                          color=BLUE,
                          arc_center=clock_center,
                          stroke_width=6)
@@ -448,6 +447,8 @@ class EquationWriting(Scene):
                   FadeOut(arc_minute),
                   FadeOut(arc_hour),
                   run_time=1.5)
+        
+        self.wait()
 
         # Simplify Result (11pi/6)
         result_text = MathTex(r"-\frac{11\pi}{6} \text{ rad/hr}", color=YELLOW, font_size=40).next_to(label_2pi_12, DOWN, aligned_edge=LEFT, buff=0.5)
