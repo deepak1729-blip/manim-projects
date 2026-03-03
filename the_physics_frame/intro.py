@@ -1,7 +1,7 @@
 from manim import *
 import numpy as np
 
-class FinalChannelLogo(Scene):
+class Channelintro(Scene):
     def construct(self):
         self.camera.background_color = "#E5E5EA"
 
