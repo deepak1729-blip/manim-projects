@@ -1,7 +1,7 @@
 from manim import *
 import numpy as np
 
-class FinalChannelLogo(Scene):
+class ChannelLogo(Scene):
     def construct(self):
         self.camera.background_color = "#E5E5EA"
 
@@ -138,21 +138,9 @@ class FinalChannelLogo(Scene):
         swoosh = VGroup(*reversed(swoosh))
         buff_mask = VGroup(*reversed(buff_mask))
 
-        # --- ANIMATION SEQUENCE ---
-        
-        # 1. Draw the squircle box smoothly
-        # self.play(Create(squircle_box, rate_func=linear), run_time=1.5)
+        # --- 6. Group and Transform ---
+        # Create a group of all the elements you want to move together
+        logo_group = VGroup(squircle_box, buff_mask, swoosh, flare)
 
-        # # 2. Draw the mask, the swoosh, and pop the flare in ALL at the exact same time.
-        # self.play(
-        #     Create(buff_mask, lag_ratio=1),
-        #     Create(swoosh, lag_ratio=1),
-        #     # FadeIn triggers simultaneously with the swoosh drawing
-        #     FadeIn(flare, scale=0.1),
-        #     run_time=1.5
-        # )
-
-        # # 3. Hold the final completed logo on screen
-        # self.wait()
-
-        self.add(squircle_box,buff_mask,swoosh,flare)
+        # Now add the group to the scene
+        self.add(logo_group)
