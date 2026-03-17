@@ -1,9 +1,9 @@
 from manim import *
 import numpy as np
 
-class FinalChannelLogo(Scene):
+class Channelbanner(Scene):
     def construct(self):
-        self.camera.background_color = "#E5E5EA"
+        self.camera.background_color = "#1C1C1E"
 
         # ==================================================
         # --- 0. THE FADING BACKGROUND GRID ---
@@ -24,7 +24,7 @@ class FinalChannelLogo(Scene):
                 # Parabolic fade along the line length
                 t = (i + 0.5) / segs
                 op = peak_opacity * (1 - (2*t - 1)**2)
-                line_segments.add(Line(p1, p2, stroke_opacity=op, stroke_width=1, color="#1C1C1E"))
+                line_segments.add(Line(p1, p2, stroke_opacity=op, stroke_width=1, color="#E5E5EA"))
             return line_segments
             
         # Vertical grid lines (fade based on X distance from center)
@@ -57,7 +57,7 @@ class FinalChannelLogo(Scene):
         uniform_points = [temp_path.point_from_proportion(p) for p in np.linspace(0, 1, 500)]
         
         # 3. Create the final uniform box
-        squircle_box = VMobject(color="#1C1C1E", stroke_width=10)
+        squircle_box = VMobject(color="#E5E5EA", stroke_width=10)
         squircle_box.set_points_as_corners(uniform_points)
         
         # --- 2. The Swoosh Path ---
@@ -85,7 +85,7 @@ class FinalChannelLogo(Scene):
             segment = Line(p1, p2, stroke_width=current_width)
             swoosh.add(segment)
         
-        swoosh.set_color_by_gradient("#1C1C1E", "#1C1C1E", "#1C1C1E", "#1C1C1E")
+        swoosh.set_color_by_gradient("#E5E5EA", "#E5E5EA", "#E5E5EA", "#E5E5EA")
 
         # --- 4. The Buffed Cutouts (The Secret Sauce) ---
         buff_mask = VGroup()
@@ -98,16 +98,16 @@ class FinalChannelLogo(Scene):
             # The mask is 8 units wider than the swoosh to create the gap
             mask_width = (16 * (1 - a1**1.5)) + 14
             
-            mask_segment = Line(p1, p2, color="#E5E5EA", stroke_width=mask_width)
+            mask_segment = Line(p1, p2, color="#1C1C1E", stroke_width=mask_width)
             buff_mask.add(mask_segment)
 
         # --- 5. The Realistic Flare (Rapid Fade & Shorter Spikes) ---
         flare_center = base_arc.point_from_proportion(0.82)
         
         # Central bright core
-        core = Dot(flare_center, radius=0.1, color="#000000", fill_opacity=1)
+        core = Dot(flare_center, radius=0.1, color="#FFFFFF", fill_opacity=1)
         # Distinct inner halo ring
-        inner_halo = Circle(radius=0.12, color="#1C1C1E", fill_opacity=0.2, stroke_width=0).move_to(flare_center)
+        inner_halo = Circle(radius=0.12, color="#E5E5EA", fill_opacity=0.2, stroke_width=0).move_to(flare_center)
         
         # Soft outer bloom with a RAPID fade
         outer_glow = VGroup()
@@ -116,7 +116,7 @@ class FinalChannelLogo(Scene):
             ring = Dot(
                 flare_center, 
                 radius=0.12 + (i * 0.015), 
-                color="#1C1C1E", 
+                color="#E5E5EA", 
                 fill_opacity=opacity,
                 stroke_width=0
             )
@@ -193,11 +193,11 @@ class FinalChannelLogo(Scene):
             extension_swoosh.add(segment)
 
         # E. Seamless Gradient: Start with the light gray of the tip, fade to dark
-        extension_swoosh.set_color_by_gradient("#1C1C1E", "#1C1C1E", "#1C1C1E")
+        extension_swoosh.set_color_by_gradient("#E5E5EA", "#E5E5EA", "#E5E5EA")
 
         # 3. Add the Text
-        title = Text("The Physics Frame", font_size=32, color="#1C1C1E", font="SF Pro Text")
-        subtitle = Text("Understand, Visualize, Solve", font_size=18, color="#1C1C1E", font="SF Pro Text")
+        title = Text("The Physics Frame", font_size=32, color="#E5E5EA", font="SF Pro Text")
+        subtitle = Text("understand,  visualize,  solve", font_size=18, color="#E5E5EA", font="SF Pro Text")
         
         # Adding aligned_edge=LEFT perfectly left-justifies the subtitle under the title
         subtitle.next_to(title, DOWN, buff=0.2, aligned_edge=LEFT)
@@ -210,16 +210,11 @@ class FinalChannelLogo(Scene):
         text_cutout = Rectangle(
             width=text_group.width + 0.6,
             height=text_group.height + 0.4,
-            color="#E5E5EA", # Matches background perfectly
+            color="#1C1C1E", # Matches background perfectly
             fill_opacity=1,
             stroke_width=0
         ).move_to(text_group)
 
 
         # --- FINAL RENDER ---
-        # Draw order is CRITICAL here: 
-        # 1. Logo 
-        # 2. Extension Line 
-        # 3. Erasing Mask (cuts the line)
-        # 4. Text (goes cleanly on top)
         self.add(logo_group, extension_swoosh, text_cutout, text_group,grid)
