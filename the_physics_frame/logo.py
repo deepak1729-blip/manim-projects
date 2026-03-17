@@ -3,7 +3,7 @@ import numpy as np
 
 class ChannelLogo(Scene):
     def construct(self):
-        self.camera.background_color = "#E5E5EA"
+        self.camera.background_color = "#1C1C1E"
 
         # --- 1. The Squircle (Superellipse - Uniform Speed Fix) ---
         r = 2
@@ -23,7 +23,7 @@ class ChannelLogo(Scene):
         uniform_points = [temp_path.point_from_proportion(p) for p in np.linspace(0, 1, 500)]
         
         # 3. Create the final uniform box
-        squircle_box = VMobject(color="#1C1C1E", stroke_width=10)
+        squircle_box = VMobject(color="#E5E5EA", stroke_width=10)
         squircle_box.set_points_as_corners(uniform_points)
         # --- 2. The Swoosh Path ---
         start_point = np.array([2.8, 1.6, 0])
@@ -51,7 +51,7 @@ class ChannelLogo(Scene):
             segment = Line(p1, p2, stroke_width=current_width)
             swoosh.add(segment)
         
-        swoosh.set_color_by_gradient("#E5E5EA", "#1C1C1E", "#1C1C1E", "#1C1C1E")
+        swoosh.set_color_by_gradient("#1C1C1E", "#E5E5EA", "#E5E5EA", "#E5E5EA")
 
         # --- 4. The Buffed Cutouts (The Secret Sauce) ---
         # We create a black version of the swoosh that is slightly THICKER 
@@ -66,7 +66,7 @@ class ChannelLogo(Scene):
             # The mask is 8 units wider than the swoosh to create the gap
             mask_width = (16 * (1 - a1**1.5)) + 14
             
-            mask_segment = Line(p1, p2, color="#E5E5EA", stroke_width=mask_width)
+            mask_segment = Line(p1, p2, color="#1C1C1E", stroke_width=mask_width)
             buff_mask.add(mask_segment)
 
         # --- 5. The Realistic Flare (Rapid Fade & Shorter Spikes) ---
@@ -74,10 +74,10 @@ class ChannelLogo(Scene):
         
         # 1. Core and Concentric Halos
         # Central bright core (slightly smaller for a sharper look)
-        core = Dot(flare_center, radius=0.1, color="#000000", fill_opacity=1)
+        core = Dot(flare_center, radius=0.1, color="#FFFFFF", fill_opacity=1)
         
         # Distinct inner halo ring (less dense)
-        inner_halo = Circle(radius=0.12, color="#1C1C1E", fill_opacity=0.2, stroke_width=0).move_to(flare_center)
+        inner_halo = Circle(radius=0.12, color="#E5E5EA", fill_opacity=0.2, stroke_width=0).move_to(flare_center)
         
         # Soft outer bloom with a RAPID fade
         outer_glow = VGroup()
@@ -87,7 +87,7 @@ class ChannelLogo(Scene):
             ring = Dot(
                 flare_center, 
                 radius=0.12 + (i * 0.015), # Spreads out from the inner halo
-                color="#1C1C1E", 
+                color="#E5E5EA", 
                 fill_opacity=opacity,
                 stroke_width=0
             )
@@ -105,7 +105,7 @@ class ChannelLogo(Scene):
                 w = thickness * (1 - (i / segs))
                 o = 0.8 * (1 - (i / segs))**1.5 
                 
-                seg = Line(p_start, p_end, stroke_width=w, stroke_opacity=o, color="#1C1C1E")
+                seg = Line(p_start, p_end, stroke_width=w, stroke_opacity=o, color="#E5E5EA")
                 ray.add(seg)
             return ray
 
