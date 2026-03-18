@@ -3,7 +3,8 @@ import numpy as np
 
 class Channelintro(Scene):
     def construct(self):
-        self.camera.background_color = "#E5E5EA"
+
+        self.camera.background_color = "#1C1C1E"
 
         # --- 1. The Squircle (Superellipse - Uniform Speed Fix) ---
         r = 2
@@ -22,9 +23,9 @@ class Channelintro(Scene):
         
         # ADDED FILL: This makes the center of the squircle opaque to hide the text!
         squircle_box = VMobject(
-            color="#1C1C1E", 
+            color="#E5E5EA", 
             stroke_width=10, 
-            fill_color="#E5E5EA", 
+            fill_color="#1C1C1E", 
             fill_opacity=1
         )
         squircle_box.set_points_as_corners(uniform_points)
@@ -52,7 +53,7 @@ class Channelintro(Scene):
             segment = Line(p1, p2, stroke_width=current_width)
             swoosh.add(segment)
         
-        swoosh.set_color_by_gradient("#E5E5EA", "#1C1C1E", "#1C1C1E", "#1C1C1E")
+        swoosh.set_color_by_gradient("#1C1C1E", "#E5E5EA", "#E5E5EA", "#E5E5EA")
 
         # --- 4. The Buffed Cutouts ---
         buff_mask = VGroup()
@@ -63,14 +64,14 @@ class Channelintro(Scene):
             p2 = base_arc.point_from_proportion(a2)
             
             mask_width = (16 * (1 - a1**1.5)) + 14
-            mask_segment = Line(p1, p2, color="#E5E5EA", stroke_width=mask_width)
+            mask_segment = Line(p1, p2, color="#1C1C1E", stroke_width=mask_width)
             buff_mask.add(mask_segment)
 
         # --- 5. The Realistic Flare ---
         flare_center = base_arc.point_from_proportion(0.82)
         
-        core = Dot(flare_center, radius=0.1, color="#000000", fill_opacity=1)
-        inner_halo = Circle(radius=0.12, color="#1C1C1E", fill_opacity=0.2, stroke_width=0).move_to(flare_center)
+        core = Dot(flare_center, radius=0.1, color="#FFFFFF", fill_opacity=1)
+        inner_halo = Circle(radius=0.12, color="#E5E5EA", fill_opacity=0.2, stroke_width=0).move_to(flare_center)
         
         outer_glow = VGroup()
         for i in range(15):
@@ -78,7 +79,7 @@ class Channelintro(Scene):
             ring = Dot(
                 flare_center, 
                 radius=0.12 + (i * 0.015),
-                color="#1C1C1E", 
+                color="#E5E5EA", 
                 fill_opacity=opacity,
                 stroke_width=0
             )
@@ -100,12 +101,12 @@ class Channelintro(Scene):
                 mob.set_stroke(width=mob.get_stroke_width() * SCALE_FACTOR)
 
         text = VGroup(*[
-            Text(w, font="SF Pro", font_size=54, color="#1C1C1E") 
+            Text(w, font="SF Pro", font_size=54, color="#E5E5EA") 
             for w in ["The", "Physics", "Frame"]
         ]).arrange(RIGHT, buff=0.2, aligned_edge=UP)
 
         text2 = VGroup(*[
-            Text(w, font="SF Pro", font_size=20, color="#3A3A3C") 
+            Text(w, font="SF Pro", font_size=20, color="#8E8E93") 
             for w in ["Understand", "Visualize", "Solve"]
         ]).arrange(RIGHT, buff=0.6).move_to([0, -3.5, 0])
 
@@ -122,7 +123,7 @@ class Channelintro(Scene):
 
         # --- THE SECRET CLOAK ---
         # A background-colored rectangle that moves with the logo to hide the long tail of the text
-        cloak = Rectangle(width=30, height=15, fill_color="#E5E5EA", fill_opacity=1, stroke_width=0)
+        cloak = Rectangle(width=30, height=15, fill_color="#1C1C1E", fill_opacity=1, stroke_width=0)
         
         # Reset to starting positions
         logo_group.move_to(ORIGIN)
