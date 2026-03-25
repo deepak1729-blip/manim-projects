@@ -691,7 +691,7 @@ class Scene3_TheFrameShift(Scene):
                 FadeIn(word_mobs[1], shift=UP * 0.2),
                 lag_ratio=0.4,
             ),
-            run_time=2
+            run_time=1.5
         )
         self.wait()
 
@@ -755,7 +755,7 @@ class Scene3_TheFrameShift(Scene):
         G_LBL_OFFSET = np.array([-0.50, -0.50, 0.0])
         g_lbl_v = MathTex(r"g", color=COLOR_VEC_G,
                           font_size=34).set_z_index(4)
-        g_lbl_v.move_to(ball_v.get_center() + G_LBL_OFFSET)
+        g_lbl_v.move_to(ball_v.get_center() + np.array([0.35, -0.5, 0.0]))
 
         self.play(GrowArrow(g_arrow_v), Write(g_lbl_v), run_time=0.9)
         self.wait(0.8)
@@ -788,7 +788,7 @@ class Scene3_TheFrameShift(Scene):
             pos = np.array([BALL_V_START[0], y, 0.0])
             m.move_to(pos)
             safe_put(g_arrow_v, pos, pos + DOWN * 1.0)
-            g_lbl_v.move_to(pos + G_LBL_OFFSET)
+            g_lbl_v.move_to(pos + np.array([0.35, -0.5, 0.0]))
             for tv, dot in zip(dot_t_vals, trail_dots_v):
                 if t >= tv:
                     dot.set_fill(opacity=0.50)
@@ -843,7 +843,7 @@ class Scene3_TheFrameShift(Scene):
         ).set_z_index(2)
         phantom_lbl = Text("g?",
                            font_size=22, color=COLOR_VEC_G)
-        phantom_lbl.next_to(phantom_g, LEFT, buff=0.05)
+        phantom_lbl.next_to(phantom_g, RIGHT, buff=0.05)
 
         self.play(GrowArrow(phantom_g),
                   FadeIn(phantom_lbl, shift=RIGHT * 0.1))
@@ -1020,7 +1020,7 @@ class Scene3_TheFrameShift(Scene):
         # 2. DUMMY GROUP TRICK
         dummy_number = Text("0.00", font="monospace", font_size=28)
         dummy_unit = Text("s", font="monospace", font_size=28)
-        VGroup(timer_label, dummy_number, dummy_unit).arrange(RIGHT, buff=0.15).move_to(DOWN, buff=1.0)
+        VGroup(timer_label, dummy_number, dummy_unit).arrange(RIGHT, buff=0.15).to_edge(DOWN, buff=0.5)
         
         # 3. Create the dynamically updating number
         timer_number = always_redraw(lambda: Text(
