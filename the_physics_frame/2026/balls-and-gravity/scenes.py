@@ -691,7 +691,7 @@ class Scene3_TheFrameShift(Scene):
                 FadeIn(word_mobs[1], shift=UP * 0.2),
                 lag_ratio=0.4,
             ),
-            run_time=3
+            run_time=2
         )
         self.wait()
 
@@ -958,7 +958,7 @@ class Scene3_TheFrameShift(Scene):
 
         # 1. Prepare the final title text FIRST
         iom_words = Text("Independence of Motion", font="Segoe UI", font_size=46,
-                         weight=BOLD, color=COLOR_GREEN).to_edge(UP, buff=0.5)
+                         weight=BOLD, color=COLOR_GREEN).to_edge(UP, buff=0.25)
 
         # 2. Morph everything from the cleanup_group into the title
         self.play(
@@ -1020,18 +1020,18 @@ class Scene3_TheFrameShift(Scene):
         # 2. DUMMY GROUP TRICK
         dummy_number = Text("0.00", font="monospace", font_size=28)
         dummy_unit = Text("s", font="monospace", font_size=28)
-        VGroup(timer_label, dummy_number, dummy_unit).arrange(RIGHT, buff=0.15).to_corner(UR, buff=1.0)
+        VGroup(timer_label, dummy_number, dummy_unit).arrange(RIGHT, buff=0.15).move_to(DOWN, buff=1.0)
         
         # 3. Create the dynamically updating number
         timer_number = always_redraw(lambda: Text(
             f"{t_master.get_value() * total_fall_time:.2f}",
             font="monospace",
-            font_size=36,
+            font_size=28,
             color=LIGHT_GRAY
         ).next_to(timer_label, RIGHT, buff=0.15, aligned_edge=DOWN))
         
         # 4. Create the dynamically updating unit
-        timer_unit = Text("s", font="monospace", font_size=36, color=LIGHT_GRAY)
+        timer_unit = Text("s", font="monospace", font_size=28, color=LIGHT_GRAY)
         timer_unit.add_updater(lambda u: u.next_to(timer_number, RIGHT, buff=0.1, aligned_edge=DOWN))
         
         timer_group = VGroup(timer_label, timer_number, timer_unit)
