@@ -188,9 +188,9 @@ class Scene1_Act1_Drop(Scene):
         self.play(FadeOut(ball2, ground))
 
         # Text Reveal
-        word1 = Text("Which", font="SF Pro Display", font_size=64, weight=BOLD, color="#FFFFFF")
-        word2 = Text("lands", font="SF Pro Display", font_size=64, weight=BOLD, color="#FFFFFF")
-        word3 = Text("first?", font="SF Pro Display", font_size=64, weight=BOLD, color="#FFFFFF")
+        word1 = Text("Which", font="Segoe UI", font_size=64, weight=BOLD, color="#FFFFFF")
+        word2 = Text("lands", font="Segoe UI", font_size=64, weight=BOLD, color="#FFFFFF")
+        word3 = Text("first?", font="Segoe UI", font_size=64, weight=BOLD, color="#FFFFFF")
         
         question_group = VGroup(word1, word2, word3).arrange(RIGHT, buff=0.3)
         question_group.move_to(ORIGIN)
@@ -510,7 +510,7 @@ class Scene2_TheNaiveAnswer(Scene):
         # ==========================================
         full_text = Text(
             "Exactly the same", 
-            font="SF Pro Display", 
+            font="Segoe UI", 
             font_size=64, 
             weight=BOLD,
             t2c={"same": "#34C759"}  # Automatically colors just the word "same" green
@@ -538,8 +538,8 @@ class Scene2_TheNaiveAnswer(Scene):
         # ==========================================
         # 10. SURPRISED -> UNDERSTAND TEXT MORPH
         # ==========================================
-        text_surprised = Text("surprised by this?", font="SF Pro Display", font_size=40, color="#8E8E93")
-        text_understand = Text("truly understand?", font="SF Pro Display", font_size=40, color="#8E8E93")
+        text_surprised = Text("surprised by this?", font="Segoe UI", font_size=40, color="#8E8E93")
+        text_understand = Text("truly understand?", font="Segoe UI", font_size=40, color="#8E8E93")
         
         # Center is the default position, so no .move_to() is needed!
         
@@ -921,26 +921,7 @@ class Scene3_TheFrameShift(Scene):
         self.wait()
 
         # ──────────────────────────────────────────────────────────
-        # ACT 4 · BLIND TO EACH OTHER
-        # ──────────────────────────────────────────────────────────
-
-        blind_text = Text(
-            "Same space. Same object. Completely blind to each other.",
-            font="Segoe UI", font_size=19, color=COLOR_AMBER
-        ).set_z_index(7)
-        blind_text.move_to(DOWN * 1.25)
-        blind_bg = Rectangle(
-            width=blind_text.width + 0.40,
-            height=blind_text.height + 0.26,
-            fill_color=COLOR_BG, fill_opacity=0.82, stroke_width=0
-        ).move_to(blind_text.get_center()).set_z_index(6)
-        self.play(FadeIn(blind_bg),
-                  Write(blind_text),
-                  run_time = 2)
-        self.wait(1.5)
-
-        # ──────────────────────────────────────────────────────────
-        # ACT 5 · INDEPENDENCE OF MOTION
+        # ACT 4 · INDEPENDENCE OF MOTION
         # ──────────────────────────────────────────────────────────
         cleanup_group = VGroup(
             lbl_vert, lbl_horiz, sep_l, sep_r, divider,
@@ -950,7 +931,6 @@ class Scene3_TheFrameShift(Scene):
             vx_arrow, vx_lbl,
             no_g_bg, no_g_text,
             axes_v_group, axes_h_group,
-            blind_bg, blind_text,
             trail_dots_v, trail_dots_h,
         )
         ground = Line(start=LEFT*7, end=RIGHT*7, color="#3A3A3C", stroke_width=2)
@@ -1075,6 +1055,26 @@ class Scene3_TheFrameShift(Scene):
 
         self.wait()
 
-        all_objects = [m for m in self.mobjects if m is not grid]
-        self.play(FadeOut(Group(*all_objects)), run_time=1.8)
+        # ──────────────────────────────────────────────────────────
+        # ACT 5 · BLIND TO EACH OTHER
+        # ──────────────────────────────────────────────────────────
+
+        blind_text = Text(
+            "Same space. Same object. Completely blind to each other.",
+            font="Segoe UI", font_size=19, color=COLOR_AMBER
+        ).set_z_index(7)
+        blind_text.move_to(DOWN * 1.25)
+        blind_bg = Rectangle(
+            width=blind_text.width + 0.40,
+            height=blind_text.height + 0.26,
+            fill_color=COLOR_BG, fill_opacity=0.82, stroke_width=0
+        ).move_to(blind_text.get_center()).set_z_index(6)
+        self.play(FadeIn(blind_bg),
+                  Write(blind_text),
+                  run_time = 2)
+        self.wait(1.5)
+
+        objects_to_fade = [m for m in self.mobjects if m not in [grid, ground, iom_words]]
+        
+        self.play(FadeOut(Group(*objects_to_fade)), run_time=1.5)
         self.wait(0.5)
